@@ -1,0 +1,62 @@
+<div id="container" style="max-width: 70vw;">
+
+    <div class="mt-5 mb-3 dropdown show d-flex justify-content-between">
+        <!-- <div class="bg-dark text-light d-flex align-items-center rounded ps-2 pe-2">{{ uploadFileName }}</div> -->
+
+        <a class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{SelectedLanguage}}
+        </a>
+      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item">C</a>
+          <a class="dropdown-item">CPP</a>
+          <a class="dropdown-item">Java</a>
+        </div>
+    </div>
+
+    <div id="monacoEditor-container" class="d-flex align-item-center justify-content-center">
+        <ngx-monaco-editor 
+            #editorM
+            [options]="editorOptions"
+            [(ngModel)]="code"
+            style="height: 60vh; width: 90vw;"
+        >
+        </ngx-monaco-editor>
+    </div>
+
+    <div id="allBtns" class="d-flex justify-content-between mt-4">
+        <button type="button" class="btn btn-primary mr-8"  id="uploadInput" (click)="uploadFileUsingFileSystemAPI()">Upload File FS</button>
+        <button type="button" class="btn btn-secondary mr-8" (click)="saveFileUsingFileSystemAPI()">Save File FS</button>
+        <button type="button" class="btn btn-success mr-8" id="compileRunCodeBtn" (click)="compileCode()">Compile</button>
+        <button type="button" class="btn btn-primary mr-8" (click)="compileWithAi()">Compile AI</button>
+        <button type="button" class="btn btn-success mr-8" [disabled]="runDisabled" id="compileRunCodeBtn" (click)="runCode()">Run</button>
+        <button type="button" class="btn btn-danger mr-8" (click)="resetEditor()">Reset</button>
+        <button type="button" class="btn btn-primary" (click)="debug()">Debug</button>
+       
+    </div>
+    
+
+    <div id="processingMsgContainer" *ngIf="showProcessingMsg" 
+        class="mt-2 p-3"
+       >
+        <label>Compilation</label>
+    <div class="mt-2 p-3"
+    style="background-color: black; color: white;">
+        {{ processingMsg }}
+    </div>
+    </div>
+
+    <div id="processingMsgContainer" *ngIf="showProcessingAiMsg" 
+        class="mt-2 p-3"
+        >
+        <label>Compilation With AI</label>
+        <div class="mt-2 p-3"
+    style="background-color: black; color: white;">
+        {{ processingAiMsg }}
+    </div>
+    </div>
+
+    <div class="mt-5" style="background-color: black;" id="terminal">
+    </div>
+    
+</div>
